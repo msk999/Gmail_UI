@@ -1,4 +1,4 @@
-# vue-test
+# vue-gmail-ui
 
 ## Project setup
 ```
