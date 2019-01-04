@@ -1,38 +1,37 @@
-// import axios from "axios";
+import axios from "axios";
 import TokenService from "@/services/StorageService";
 
 const ApiService = {
   init(baseURL) {
-    this.$http.options.root = baseURL;
+    axios.defaults.baseURL = baseURL;
   },
 
   setHeader() {
-    this.$http.headers.common[
+    axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${TokenService.getToken()}`;
-    this.$http.headers.common["Accept"] = "application/json";
-    this.$http.headers.common["Content-Type"] = "application/json";
+    axios.defaults.headers.common["Accept"] = "application/json";
+    axios.defaults.headers.common["Content-Type"] = "application/json";
   },
 
   removeHeader() {
-    this.$http.headers.common = {};
+    axios.defaults.headers.common = {};
   },
 
   get(resource) {
-    return this.$http.get(resource);
+    return axios.get(resource);
   },
 
   post(resource, data) {
-    console.log("data:" + data);
-    return this.$http.post(resource, data);
+    return axios.post(resource, data);
   },
 
   put(resource, data) {
-    return this.$http.put(resource, data);
+    return axios.put(resource, data);
   },
 
   delete(resource) {
-    return this.$http.delete(resource);
+    return axios.delete(resource);
   },
 
   /**
@@ -47,8 +46,7 @@ const ApiService = {
    *    - password
    **/
   customRequest(data) {
-    debugger;
-    return this.$http(data);
+    return axios(data);
   }
 };
 

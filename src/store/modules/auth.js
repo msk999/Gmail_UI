@@ -30,12 +30,11 @@ export const getters = {
 };
 
 export const actions = {
-  login({ commit }, { email, password }) {
+  async login({ commit }, { email, password }) {
     commit("LOGIN_REQUEST");
 
     try {
-      debugger;
-      const token = UserService.login(email, password);
+      const token = await UserService.login(email, password);
       commit("LOGIN_SUCCESS", token);
 
       // Redirect the user to the page he first tried to visit or to the home view
@@ -43,7 +42,6 @@ export const actions = {
 
       return true;
     } catch (error) {
-      console.log(error);
       // if (e instanceof AuthenticationError) {
       commit("LOGIN_ERROR", {
         errorCode: error.errorCode,

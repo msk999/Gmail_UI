@@ -5,9 +5,7 @@ import store from "./store/store";
 import ApiService from "./services/ApiService";
 import TokenService from "./services/StorageService";
 import ConfigService from "./services/ConfigService";
-import VueResource from "vue-resource";
 
-Vue.use(VueResource);
 Vue.config.productionTip = false;
 
 new Vue({

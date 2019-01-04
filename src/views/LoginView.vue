@@ -50,24 +50,7 @@ export default {
           email: this.email,
           password: this.password
         });
-        // this.login({ email: this.email, password: this.password });
-
-        // this.$http
-        //   .post("http://vm-gmail.com/api/v1/user_token", {
-        //     auth: {
-        //       email: this.email,
-        //       password: this.password
-        //     }
-        //   })
-        //   .then(
-        //     response => {
-        //       console.log(response);
-        //       this.password = "";
-        //     },
-        //     error => {
-        //       console.log(error);
-        //     }
-        //   );
+        this.password = "";
       }
     }
   }

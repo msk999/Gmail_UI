@@ -15,12 +15,10 @@ const UserService = {
   /**
    * Login the user and store the access token to TokenService.
    *
-   * @returns access_token
+   * @returns jwt
    * @throws AuthenticationError
    **/
-  login: function(email, password) {
-    console.log("found UserService");
-
+  login: async function(email, password) {
     const requestData = {
       method: "post",
       url: ConfigService.getBaseUrl() + "/user_token",
@@ -29,27 +27,20 @@ const UserService = {
           email: email,
           password: password
         }
-        // grant_type: "password",
-      } //,
-      // auth: {
-      //   username: process.env.VUE_APP_CLIENT_ID,
-      //   password: process.env.VUE_APP_CLIENT_SECRET
-      // }
+      }
     };
 
     try {
-      debugger;
-      const response = ApiService.post(requestData.url, requestData.data);
-
-      TokenService.saveToken(response.data.access_token);
+      const response = await ApiService.post(requestData.url, requestData.data);
+      TokenService.saveToken(response.data.jwt);
       TokenService.saveRefreshToken(response.data.refresh_token);
       ApiService.setHeader();
 
       // NOTE: We haven't covered this yet in our ApiService
       //       but don't worry about this just yet - I'll come back to it later
-      ApiService.mount401Interceptor();
-
-      return response.data.access_token;
+      // ApiService.mount401Interceptor();
+      console.log("Success:" + response.data.jwt);
+      return response.data.jwt;
     } catch (error) {
       throw new AuthenticationError(
         error.response.status,
@@ -70,11 +61,7 @@ const UserService = {
       data: {
         grant_type: "refresh_token",
         refresh_token: refreshToken
-      } //,
-      // auth: {
-      //   username: process.env.VUE_APP_CLIENT_ID,
-      //   password: process.env.VUE_APP_CLIENT_SECRET
-      // }
+      }
     };
 
     try {
