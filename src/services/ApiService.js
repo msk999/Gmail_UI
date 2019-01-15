@@ -4,14 +4,14 @@ import TokenService from "@/services/StorageService";
 const ApiService = {
   init(baseURL) {
     axios.defaults.baseURL = baseURL;
+    axios.defaults.headers.common["Accept"] = "application/json";
+    axios.defaults.headers.common["Content-Type"] = "application/json";
   },
 
   setHeader() {
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${TokenService.getToken()}`;
-    axios.defaults.headers.common["Accept"] = "application/json";
-    axios.defaults.headers.common["Content-Type"] = "application/json";
   },
 
   removeHeader() {
@@ -19,6 +19,7 @@ const ApiService = {
   },
 
   get(resource) {
+    this.setHeader();
     return axios.get(resource);
   },
 

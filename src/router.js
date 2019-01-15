@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import LoginView from "./views/LoginView.vue";
+import TokenService from "@/services/StorageService";
 
 Vue.use(Router);
 
@@ -43,7 +44,7 @@ router.beforeEach((to, from, next) => {
   const onlyWhenLoggedOut = to.matched.some(
     record => record.meta.onlyWhenLoggedOut
   );
-  const loggedIn = false;
+  const loggedIn = !!TokenService.getToken();
 
   if (!isPublic && !loggedIn) {
     return next({

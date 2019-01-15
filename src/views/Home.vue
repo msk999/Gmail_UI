@@ -13,6 +13,9 @@ export default {
   name: "home",
   components: {
     HelloWorld
+  },
+  created() {
+    this.$store.dispatch("messages/retrieve");
   }
 };
 </script>
