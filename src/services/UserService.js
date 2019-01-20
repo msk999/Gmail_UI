@@ -38,7 +38,7 @@ const UserService = {
 
       // NOTE: We haven't covered this yet in our ApiService
       //       but don't worry about this just yet - I'll come back to it later
-      // ApiService.mount401Interceptor();
+      ApiService.mount401Interceptor();
       console.log("Success:" + response.data.jwt);
       return response.data.jwt;
     } catch (error) {

@@ -1,13 +1,13 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h3>Essential Links</h3>
+    <h3>{{ msg }}</h3>
+    <hr>
     <table>
       <tr v-for="item in messages" :key="item.id">
         <td>{{item.from | truncate }}</td>
         <!-- <td>{{item.from}}</td> -->
         <td>{{ item.subject }}</td>
-        <td>{{item.date}}</td>
+        <td>{{item.date | date_format}}</td>
       </tr>
     </table>
   </div>
@@ -36,6 +36,15 @@ export default {
       var indexChar = value.indexOf("<");
       if (indexChar < 0) return value;
       return value.substring(0, indexChar).trim();
+    },
+    date_format: function(value) {
+      var dateElem = new Date(value);
+      var date_string = dateElem.toLocaleDateString();
+      if (date_string == new Date().toLocaleDateString()) {
+        // eslint-disable-next-line
+        date_string = dateElem.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }
+      return date_string;
     }
   }
 };
